@@ -4,101 +4,110 @@ import Link from "next/link";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Core — Your group chat, made real",
-  description: "A live demo of Core: the group chat becomes the store, and shared stories become real products.",
+  title: "Core — Friendship, made tangible",
+  description: "Core turns the stories a group shares into products they can hold. Explore the live demo.",
 };
 
 const projectUrl = "/projects/-1001234567890";
 const productUrl = `${projectUrl}/products/demo-rose`;
 
+const journey = [
+  { number: "01", title: "A moment becomes lore", text: "Friends keep talking. A line, a ritual, or an old joke comes back again and again.", cue: "“And tonight’s final rose goes to…”" },
+  { number: "02", title: "Core notices the pattern", text: "With an admin’s consent, Core finds the recurring story and shows the messages behind it.", cue: "A story the whole group recognizes" },
+  { number: "03", title: "The group decides", text: "Friends vote on a real product type, or vote No. The group has the final say.", cue: "Pocket square · Napkins · No" },
+  { number: "04", title: "Arcade makes it real", text: "The chosen idea becomes a made-to-order product with an image and a real price.", cue: "One idea, made for this group" },
+  { number: "05", title: "Everyone keeps their own", text: "Each friend can buy a copy. Core keeps the story and order journey in one place.", cue: "A shared memory, individually owned" },
+];
+
+const screens = [
+  { href: projectUrl, src: "/demo/app-projects.png", alt: "Core Projects screen showing the Apartment 4B group collection", label: "01 / COLLECT", title: "A home for every group", text: "The group’s creations live together in one collection." },
+  { href: productUrl, src: "", alt: "", label: "02 / REMEMBER", title: "The story stays with it", text: "Every design keeps the lore and chat moments that inspired it." },
+  { href: "/tracking/demo-o2", src: "/demo/app-tracking.png", alt: "Core order screen showing design review and production progress", label: "03 / FOLLOW", title: "Follow it into the world", text: "See the order move from design review to delivery." },
+];
+
 export default function DemoPage() {
   return (
     <main id="top" className={styles.site}>
       <header className={styles.nav}>
-        <Link href="/demo" className={styles.brand}>Core<span className={styles.brandDot}>.</span></Link>
+        <Link href="/demo" className={styles.brand}>Core<span>.</span></Link>
         <nav aria-label="Main navigation">
           <a href="#story">The story</a>
-          <a href="#experience">Experience</a>
-          <Link href="/">Live app <span aria-hidden>↗</span></Link>
+          <a href="#how">How it works</a>
+          <a href="#app">The app</a>
+          <Link href="/demo/journey">Guided demo <span aria-hidden="true">↗</span></Link>
         </nav>
       </header>
 
       <section className={styles.intro}>
         <div>
-          <p className={styles.eyebrow}>Shopping 3.0 / Live demo</p>
-          <h1>Your group chat,<br /><em>made real.</em></h1>
+          <p className={styles.eyebrow}>Core (2026) / Shopping 3.0</p>
+          <h1>Friendship,<br /><em>made tangible.</em></h1>
         </div>
         <div className={styles.introRight}>
-          <p className={styles.lede}>Core turns the stories only your friends understand into products only your group could make.</p>
-          <p>A Telegram bot notices the moments that become group lore. Your friends vote on what to make. Arcade turns the winning idea into a real, made-to-order product. The Core app brings the collection and order journey together.</p>
+          <p className={styles.lede}>The best things about a friend group rarely look like products. They look like the stories only that group understands.</p>
+          <p>Core turns those stories into things friends can hold. A Telegram bot notices shared lore, the group votes on what it should become, and Arcade makes the chosen idea. The Core app gives every creation a home and lets each friend follow their own order.</p>
           <div className={styles.meta}>
-            <div><span>Built for</span><strong>Shopping 3.0 Hackathon</strong></div>
-            <div><span>Experience</span><strong>Telegram bot · Core app · Arcade</strong></div>
             <div><span>Team</span><strong>Rachel · Ekene</strong></div>
+            <div><span>Roles</span><strong>App, design & pitch · Bot</strong></div>
+            <div><span>Built with</span><strong>Telegram · OpenAI · Arcade · Next.js</strong></div>
           </div>
-          <Link href="/demo/journey" className={styles.textLink}>Walk through the product <span aria-hidden>↗</span></Link>
+          <Link href="/demo/journey" className={styles.textLink}>Walk through the product <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
 
-      <section className={styles.hero} aria-label="Friends together, the heart of Core">
-        <div className={styles.heroCopy}>
-          <span className={styles.heroIndex}>01 / The group behind the story</span>
-          <p>Made for<br />the people<br /><i>in the chat.</i></p>
+      <section className={styles.hero} aria-label="Friendship is the beginning of Core">
+        <Image src="/demo/group-chat.png" alt="Illustrative photograph of a group of friends gathered outdoors" fill priority sizes="100vw" />
+        <div className={styles.heroShade} />
+        <div className={styles.heroCopy}><span>THE IDEA</span><p>The people<br />make the product.</p></div>
+      </section>
+
+      <section id="story" className={styles.problemSolution}>
+        <div><span className={styles.sectionNumber}>01 / The problem</span><h2>Friendship has a language. It disappears into the scroll.</h2><p>Inside jokes, nicknames, and rituals make a group feel like itself. But they stay buried in messages. Making custom merch takes design work, money collection, and coordination that no one volunteered to do.</p></div>
+        <div><span className={styles.sectionNumber}>02 / The solution</span><h2>Give the group a way to keep what only they understand.</h2><p>Core finds a recurring story, asks the friends whether it deserves to become something, and gives their choice a real form through Arcade. Each person can take home their own copy.</p></div>
+      </section>
+
+      <section className={styles.photoEssay} aria-label="Illustrative friendship imagery">
+        <div className={styles.photoEssayIntro}><span className={styles.sectionNumber}>Before the product</span><h2>There was a night.<br />A line. A person.<br /><em>A reason it mattered.</em></h2><p>The product is the last chapter. The friendship is the source.</p></div>
+        <figure className={styles.photoLounge}><Image src="/demo/friends-lounge.webp" alt="Illustrative photograph of friends spending an evening together" fill sizes="(max-width: 760px) 100vw, 55vw" /><figcaption>01 / THE MOMENTS</figcaption></figure>
+        <figure className={styles.photoCar}><Image src="/demo/friends-car.webp" alt="Illustrative photograph of four friends together in a car" fill sizes="(max-width: 760px) 100vw, 30vw" /><figcaption>02 / THE PEOPLE</figcaption></figure>
+        <figure className={styles.photoTrees}><Image src="/demo/friends-trees.webp" alt="Illustrative photograph of a friend group gathered beneath trees" fill sizes="(max-width: 760px) 100vw, 30vw" /><figcaption>03 / THE MEMORY</figcaption></figure>
+      </section>
+
+      <section id="how" className={styles.journey}>
+        <div className={styles.journeyHeading}><span className={styles.sectionNumber}>03 / The journey</span><h2>From group chat<br />to something real.</h2><p>Core is a small bridge between a story that happened and an object that can stay. The group remains in control at the point that matters most.</p></div>
+        <div className={styles.journeyVisual}>
+          <div className={styles.cutout}><Image src="/demo/friends-cutout.webp" alt="Illustrative overhead view of people talking together" fill sizes="(max-width: 760px) 100vw, 36vw" /></div>
+          <ol className={styles.flow}>
+            {journey.map((step) => <li key={step.number}><span className={styles.flowNumber}>{step.number}</span><div><h3>{step.title}</h3><p>{step.text}</p><small>{step.cue}</small></div></li>)}
+          </ol>
         </div>
-        <div className={styles.heroImage}>
-          <Image src="/demo/group-chat.png" alt="A group of friends together outdoors" fill priority sizes="(max-width: 800px) 100vw, 55vw" />
-          <span className={styles.heroImageLabel}>THE PEOPLE MAKE THE STORY</span>
+        <div className={styles.controlNote}><strong>People choose what exists.</strong><p>An admin consents before Core collects new messages. The group can vote No; nothing is made unless it chooses a product.</p></div>
+      </section>
+
+      <section className={styles.example}>
+        <div className={styles.exampleIntro}><span className={styles.sectionNumber}>04 / A story from the demo</span><h2>The Final Rose</h2><p>At the end of every dinner, Sam names a “final rose.” The group keeps bringing it up. Core sees a shared ritual and asks whether to turn it into something everyone can keep.</p><span className={styles.exampleDisclosure}>Illustrative group chat and sample product.</span></div>
+        <div className={styles.exampleGrid}>
+          <div className={styles.chatPanel} aria-label="Illustrative Telegram group conversation">
+            <div className={styles.chatTop}><span className={styles.avatar}><Image src="/demo/group-chat.png" alt="" fill sizes="44px" /></span><div><strong>Apartment 4B</strong><small>group chat</small></div><span aria-hidden="true">•••</span></div>
+            <div className={styles.chatDate}>TODAY</div>
+            <div className={styles.chatBubble}><strong>Sam</strong>and tonight&apos;s final rose goes to… whoever paid</div>
+            <div className={styles.chatBubble}><strong>Mei</strong>the rose ceremony is the only reason I come to these</div>
+            <div className={`${styles.chatBubble} ${styles.chatCore}`}><strong>Core</strong>There&apos;s a story here. Should “the final rose” become something your group can keep?<div className={styles.voteChips}><span>Pocket square</span><span>Napkins</span><span>No</span></div></div>
+          </div>
+          <div className={styles.productPanel}><div className={styles.productImage}><Image src="/demo/pattern-rose-lattice.jpg" alt="Floral design preview for The Final Rose pocket square" fill sizes="(max-width: 760px) 100vw, 50vw" /></div><div className={styles.productCaption}><span>MADE FROM A SHARED STORY</span><h3>The Final Rose Pocket Square</h3><p>Design preview · $32 each</p><Link href={productUrl}>See the story in Core ↗</Link></div></div>
         </div>
       </section>
 
-      <section id="story" className={styles.splitSection}>
-        <div><span className={styles.sectionNumber}>01 / The problem</span><h2>The best group stories have nowhere to go.</h2><p>Inside jokes, catchphrases, and legendary nights live in the chat, then disappear into the scroll. Making something together usually means someone has to design it, collect money, and coordinate production.</p></div>
-        <div><span className={styles.sectionNumber}>02 / The idea</span><h2>Let the conversation invent the product.</h2><p>Core recognizes the lore, asks the group what it should become, and makes the chosen idea available for each person to buy. The group decides what deserves to exist.</p></div>
-      </section>
-
-      <section className={styles.quoteBand}>
-        <p>“The product is invented from the conversation.”</p>
-        <span>Core / Shopping 3.0</span>
-      </section>
-
-      <section id="experience" className={styles.process}>
-        <div className={styles.sectionIntro}><span className={styles.sectionNumber}>03 / The experience</span><h2>From a shared moment<br />to something you can hold.</h2><p>A simple loop keeps the group in control, from the first spark to the final delivery.</p></div>
-        <div className={styles.steps}>
-          <div><span>01</span><strong>Keep chatting</strong><p>Core joins a Telegram group after an admin consents. Friends keep talking as usual.</p></div>
-          <div><span>02</span><strong>Spot the lore</strong><p>AI finds a recurring moment and shows the messages that explain why it matters.</p></div>
-          <div><span>03</span><strong>Vote together</strong><p>Members choose an Arcade product type or vote “No.” Nothing is made without the group.</p></div>
-          <div><span>04</span><strong>Make it real</strong><p>Arcade generates a real product and price. Each member can check out individually.</p></div>
-        </div>
-      </section>
-
-      <section className={styles.feature}>
-        <div className={styles.featureCopy}><span className={styles.sectionNumber}>04 / The spark</span><h2>It starts with a moment everyone remembers.</h2><p>In Apartment 4B, Sam ends every group dinner with a “final rose.” Core catches the recurring joke and brings it back to the group as a product idea.</p><div className={styles.smallNote}>Real group context shapes the idea. A group vote decides if it moves forward.</div></div>
-        <div className={styles.chatPanel} aria-label="Example Telegram conversation">
-          <div className={styles.chatTop}><span className={styles.avatar}><Image src="/demo/group-chat.png" alt="" fill sizes="44px" /></span><div><strong>Apartment 4B</strong><small>group chat</small></div><span className={styles.chatMenu}>•••</span></div>
-          <div className={styles.chatDate}>TODAY</div>
-          <div className={styles.chatBubble}><strong>Sam</strong>and tonight&apos;s final rose goes to… whoever paid</div>
-          <div className={styles.chatBubble}><strong>Mei</strong>the rose ceremony is the only reason I come to these</div>
-          <div className={`${styles.chatBubble} ${styles.chatCore}`}><strong>Core</strong>There&apos;s a story here. Should “the final rose” become something your group can keep?<div className={styles.voteChips}><span>Pocket square</span><span>Napkins</span><span>No</span></div></div>
-        </div>
-      </section>
-
-      <section className={`${styles.feature} ${styles.featureReverse}`}>
-        <div className={styles.productStage}><div className={styles.productStageImage}><Image src="/demo/pattern-rose-lattice.jpg" alt="Final Rose floral design preview" fill sizes="(max-width: 800px) 100vw, 50vw" /></div><div className={styles.productStageCaption}><span>APARTMENT 4B / POCKET SQUARES</span><strong>The Final Rose</strong><small>Design preview</small></div></div>
-        <div className={styles.featureCopy}><span className={styles.sectionNumber}>05 / The creation</span><h2>A one-of-one idea, made to order.</h2><p>The winning vote becomes a product with a real price through Arcade. Everyone sees the same shared story, then buys their own copy if they want one.</p><Link href={productUrl} className={styles.textLink}>Explore the product <span aria-hidden>↗</span></Link></div>
-      </section>
-
-      <section className={styles.appSection}>
-        <div className={styles.appHeading}><div><span className={styles.sectionNumber}>06 / The Core app</span><h2>The group&apos;s collection,<br />all in one place.</h2></div><p>Browse everything the group has made, see the lore behind each design, and follow an order from checkout to delivery.</p></div>
+      <section id="app" className={styles.appSection}>
+        <div className={styles.appHeading}><div><span className={styles.sectionNumber}>05 / The Core app</span><h2>The product keeps<br />its story.</h2></div><p>The Core app gives the group a collection, shows why each object exists, and follows the order into the real world.</p></div>
         <div className={styles.appShowcase}>
-          <Link href={projectUrl} className={styles.showcaseCard}><div className={styles.showcaseImage}><Image src="/demo/pattern-florals.jpg" alt="Floral print representing the group collection" fill sizes="(max-width: 800px) 100vw, 33vw" /></div><div><span>01 / DISCOVER</span><strong>The collection</strong><small>Products made from the group&apos;s shared lore.</small></div></Link>
-          <Link href={productUrl} className={styles.showcaseCard}><div className={styles.showcaseImage}><Image src="/demo/pattern-rose-lattice.jpg" alt="Final Rose product design preview" fill sizes="(max-width: 800px) 100vw, 33vw" /></div><div><span>02 / REMEMBER</span><strong>The story behind it</strong><small>See the chat moments and votes that made it real.</small></div></Link>
-          <Link href="/tracking" className={styles.showcaseCard}><div className={styles.showcaseImage}><Image src="/demo/necklace-garden.jpg" alt="Necklace preview from the group collection" fill sizes="(max-width: 800px) 100vw, 33vw" /></div><div><span>03 / FOLLOW</span><strong>Order tracking</strong><small>Know where your creation is in the making.</small></div></Link>
+          {screens.map((screen) => <Link href={screen.href} key={screen.label} className={styles.showcaseCard}><div className={styles.showcaseImage}><div className={styles.screenFrame}>{screen.src ? <Image src={screen.src} alt={screen.alt} fill sizes="(max-width: 760px) 220px, 260px" /> : <div className={styles.storyScreen}><div className={styles.storyScreenTop}>‹ <strong>Apartment 4B</strong></div><div className={styles.storyScreenCard}><small>THE STORY</small><h4>Sam hands out a “final rose” at the end of every group dinner</h4><p>Three people reference Sam&apos;s rose ceremony, and it&apos;s become how dinners end.</p><em>Your group chose Pocket Squares · 4 votes</em></div><h5>From the chat</h5><div className={styles.storyMessage}><small>Sam</small><p>and tonight&apos;s final rose goes to… whoever paid</p></div><div className={styles.storyMessage}><small>Mei</small><p>the rose ceremony is the only reason I come to these</p></div></div>}</div></div><div className={styles.showcaseCopy}><span>{screen.label}</span><h3>{screen.title}</h3><p>{screen.text}</p><b aria-hidden="true">↗</b></div></Link>)}
         </div>
       </section>
 
-      <section className={styles.finalCta}><span className={styles.sectionNumber}>Ready to see it?</span><h2>Open the story.<br /><em>Explore the product.</em></h2><p>Start with the guided walkthrough, then explore the working app and its sample group.</p><div className={styles.actions}><Link href="/demo/journey" className={styles.primaryButton}>Start guided demo <span aria-hidden>↗</span></Link><Link href="/" className={styles.secondaryButton}>Explore the app <span aria-hidden>↗</span></Link></div></section>
+      <section className={styles.close}><span className={styles.sectionNumber}>Friendship as a product</span><h2>Not another thing.<br /><em>A thing that means something.</em></h2><p>Every group has a story worth keeping. Core gives them a way to make it together.</p><div className={styles.actions}><Link href="/demo/journey" className={styles.primaryButton}>Start guided demo <span aria-hidden="true">↗</span></Link><Link href="/" className={styles.secondaryButton}>Explore the app <span aria-hidden="true">↗</span></Link></div></section>
 
-      <footer className={styles.footer}><Link href="/demo" className={styles.brand}>Core<span className={styles.brandDot}>.</span></Link><p>Made from the moments that make us us.</p><a href="#top">Back to top ↑</a></footer>
+      <footer className={styles.footer}><Link href="/demo" className={styles.brand}>Core<span>.</span></Link><p>Made from the moments that make us us.</p><a href="#top">Back to top ↑</a></footer>
     </main>
   );
 }
