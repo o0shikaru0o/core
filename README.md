@@ -10,7 +10,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Without `DATABASE_URL`, the app uses the demo group, products, and orders in `lib/demo.ts`. Set `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` to enable the **Get yours** Telegram handoff; the demo does not link to an assumed bot username.
+Without `DATABASE_URL`, the app uses the demo group, products, and orders in `lib/demo.ts`. With it, only the Telegram groups listed in `CORE_VISIBLE_CHAT_IDS` are shown. Set `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` to enable the **Get yours** Telegram handoff; the demo does not link to an assumed bot username.
 
 ## Product and integration
 

@@ -10,6 +10,10 @@ const pool = process.env.DATABASE_URL
   ? (g.corePool ??= new Pool({ connectionString: process.env.DATABASE_URL, max: 3 }))
   : null;
 
+// Only these Telegram groups are shown. Pages have no login, so anyone with a link could see a group's lore and quotes.
+const VISIBLE = (process.env.CORE_VISIBLE_CHAT_IDS ?? "").split(",").map((id) => id.trim()).filter(Boolean);
+const visible = (chatId: unknown) => VISIBLE.includes(String(chatId));
+
 // Rows come from tables the bot defines, so they are loosely typed here.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Row = Record<string, any>;
@@ -47,16 +51,17 @@ async function toProduct(row: Row): Promise<Product> {
 const PRODUCT_SQL = `
   select gp.proposal_id, gp.arcade_product_id, gp.category, gp.price, gp.image_url, gp.details, gp.created_at,
          lp.chat_id, lp.lore, lp.round, lp.categories, lp.winner
-  from generated_products gp join lore_proposals lp on lp.id = gp.proposal_id`;
+  from generated_products gp join lore_proposals lp on lp.id = gp.proposal_id
+  where lp.status = 'generated' and lp.chat_id::text = any($1)`;
 
 export async function listProjects(): Promise<Project[]> {
   if (!pool) return demoProjects;
-  return (await query("select * from groups order by created_at desc")).map(toProject);
+  return (await query("select * from groups where chat_id::text = any($1) order by created_at desc", [VISIBLE])).map(toProject);
 }
 
 export async function getProject(projectId: string): Promise<Project | undefined> {
   if (!pool) return demoProjects.find((p) => p.id === projectId);
-  if (!/^-?\d+$/.test(projectId)) return undefined;
+  if (!visible(projectId)) return undefined;
   const [row] = await query("select * from groups where chat_id = $1", [projectId]);
   return row && toProject(row);
 }
@@ -64,14 +69,14 @@ export async function getProject(projectId: string): Promise<Project | undefined
 export async function listProducts(projectId?: string): Promise<Product[]> {
   if (!pool) return demoProducts.filter((p) => !projectId || p.projectId === projectId);
   const rows = projectId
-    ? await query(`${PRODUCT_SQL} where lp.chat_id = $1 order by gp.created_at desc`, [projectId])
-    : await query(`${PRODUCT_SQL} order by gp.created_at desc`);
+    ? await query(`${PRODUCT_SQL} and lp.chat_id::text = $2 order by gp.created_at desc`, [VISIBLE, projectId])
+    : await query(`${PRODUCT_SQL} order by gp.created_at desc`, [VISIBLE]);
   return Promise.all(rows.map(toProduct));
 }
 
 export async function getProduct(productId: string): Promise<Product | undefined> {
   if (!pool) return demoProducts.find((p) => p.id === productId);
-  const [row] = await query(`${PRODUCT_SQL} where gp.proposal_id = $1`, [productId]);
+  const [row] = await query(`${PRODUCT_SQL} and gp.proposal_id = $2`, [VISIBLE, productId]);
   if (!row) return undefined;
   const product = await toProduct(row);
 
@@ -96,6 +101,7 @@ export async function getProduct(productId: string): Promise<Product | undefined
 // Lore that is still being voted on or generated, shown as "coming up" on the project page.
 export async function listPendingProposals(projectId: string): Promise<Proposal[]> {
   if (!pool) return demoProposals.filter((p) => p.projectId === projectId);
+  if (!visible(projectId)) return [];
   const rows = await query(
     "select id, chat_id, lore, status, created_at from lore_proposals where chat_id = $1 and status in ('voting', 'generating') order by created_at desc",
     [projectId],
@@ -109,8 +115,8 @@ export async function listOrders(filter: { productId?: string } = {}): Promise<O
   let rows: Row[];
   try {
     rows = filter.productId
-      ? await query("select * from checkouts where proposal_id = $1 order by created_at desc", [filter.productId])
-      : await query("select * from checkouts order by created_at desc");
+      ? await query("select * from checkouts where chat_id::text = any($1) and proposal_id = $2 order by created_at desc", [VISIBLE, filter.productId])
+      : await query("select * from checkouts where chat_id::text = any($1) order by created_at desc", [VISIBLE]);
   } catch {
     return []; // table not created by the bot yet
   }
@@ -120,7 +126,7 @@ export async function listOrders(filter: { productId?: string } = {}): Promise<O
 export async function getOrder(orderId: string): Promise<Order | undefined> {
   if (!pool) return demoOrders.find((o) => o.id === orderId);
   try {
-    const [row] = await query("select * from checkouts where id::text = $1", [orderId]);
+    const [row] = await query("select * from checkouts where chat_id::text = any($1) and id::text = $2", [VISIBLE, orderId]);
     return row && toOrder(row);
   } catch {
     return undefined;

@@ -76,13 +76,43 @@ f"{APP_URL}/projects/{chat_id}"
 
 **The app works before any of this.** Missing `title` shows "Telegram group", and a missing `checkouts` table shows an empty Tracking tab.
 
-## App environment
+## Going live: connection checklist
 
-```
-DATABASE_URL=                       # read-only URL from step 1; blank = demo data
-ARCADE_API_KEY=                     # same Arcade account as the bot
-NEXT_PUBLIC_TELEGRAM_BOT_USERNAME=  # bot username without @
-```
+Do these in order. The app keeps working on demo data until step 3.
+
+| # | Who | Step |
+|---|---|---|
+| 1 | Ekene | Move the bot's database to hosted Postgres (Neon, Supabase or InsForge). Restart the bot against it and check `/status`. |
+| 2 | Ekene | Create the read-only `core_app` user (SQL above) and send its connection URL privately. |
+| 3 | Rachel | In Vercel → Project → Settings → Environment Variables, set `DATABASE_URL`, `CORE_VISIBLE_CHAT_IDS`, `ARCADE_API_KEY` and `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` (table below). |
+| 4 | Rachel | **Redeploy** (Deployments → ⋯ → Redeploy). `NEXT_PUBLIC_` values are built into the page, so a redeploy is required after changing them. |
+| 5 | Ekene | Set `CORE_APP_URL` on the bot to the Vercel URL and ship the **View in Core** button (step 4 above). |
+| 6 | Ekene | Ship `groups.title` and `checkouts` (steps 2 and 3 above). The app picks them up with no redeploy. |
+| 7 | Both | Run the demo script. Check: Projects shows "Wedding party"; **View in Core** opens the right product; "From the chat" shows the round's messages; **Get yours** opens the bot; after paying, Tracking shows a stage. |
+
+### App environment (Vercel)
+
+| Variable | Value |
+|---|---|
+| `DATABASE_URL` | Read-only URL from step 2. Blank = demo data. |
+| `CORE_VISIBLE_CHAT_IDS` | The demo group's Telegram chat ID, e.g. `-1001234567890`. Comma-separate several. **Any group not listed is never shown.** |
+| `ARCADE_API_KEY` | The same Arcade account the bot uses (products and orders belong to that account). |
+| `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` | Bot username without `@`. Blank disables **Get yours**. |
+
+To find the chat ID: `select chat_id, title from groups;` in the bot's database, or open the group in [Telegram Web](https://web.telegram.org) and read the number in the URL.
+
+## Differences from Ekene's `core-app.md`
+
+Ekene's [`core-app.md`](https://github.com/Ekene-Azubuko/core/blob/main/core-app.md) describes a fuller companion app: accounts, Telegram login, a membership check on every page, and code in a `companion/` folder of the bot repo. For the hackathon we're doing a smaller version. Agree on these with Ekene:
+
+| `core-app.md` | This app | Why |
+|---|---|---|
+| Sign-in plus a Telegram membership check before showing a group | No login; only groups in `CORE_VISIBLE_CHAT_IDS` are shown | Only the consenting demo group is ever visible. Real accounts are post-hackathon. |
+| Don't read `messages` or `votes` | Reads the evidence messages and the winning vote count for the product page | "From the chat" and vote counts are central to the demo, and only for the allowlisted group |
+| No Arcade credentials in the app | Uses the team's Arcade key, server-side only | Stored image URLs expire after about an hour, and order status only comes from Arcade |
+| Code in `companion/` of the bot repo | Separate repo, [o0shikaru0o/core](https://github.com/o0shikaru0o/core) | Already built and deploying; no bot files are touched either way |
+| Gallery link at `/groups/<id>` | `/projects/<id>` and `/projects/<id>/products/<proposal_id>` | Use these paths for the bot's buttons |
+| No `groups.title` (schema not changed by the app team) | Asks Ekene, as schema owner, to add it | Otherwise every project shows "Telegram group" |
 
 ## Rules for both sides
 
