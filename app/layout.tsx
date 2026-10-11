@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import PhoneFrame from "@/components/PhoneFrame";
+import AppShell from "@/components/AppShell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <PhoneFrame>{children}</PhoneFrame>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

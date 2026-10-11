@@ -24,3 +24,13 @@
 - Browser inspection covered home, group collection, product detail, tracking, order detail, and profile. The browser console showed no errors before a dev/build output collision; the dev server was restarted cleanly afterward.
 
 The Apple Store comparison establishes the visual direction, not pixel parity: the Core screen uses different imagery, content, and product actions. The source screenshot is a compressed Mobbin composite, so exact typography and spacing measurements are not reliable.
+
+## Live demo site QA
+
+- Reference structure: [Objectify case study](https://annabbbang.com/objectify), inspected at desktop width. Core uses its own copy, palette, product imagery, and navigation.
+- The new `/demo` page follows the reference's editorial sequence: project introduction and metadata, hero visual, problem and idea, process, product moments, app showcase, and final action.
+- Desktop and 390 × 844 mobile layouts were inspected in the browser. Text, image crops, cards, and navigation were readable without horizontal overflow.
+- The **Launch live demo** action opened the Core app successfully. Browser console errors: none.
+- Production build, TypeScript check, and whitespace check passed.
+
+Final result: passed.

@@ -18,4 +18,6 @@ Without `DATABASE_URL`, the app uses the demo group, products, and orders in `li
 - [Core bot integration](docs/INTEGRATION.md)
 - [UX flow and visual direction](docs/UX_FLOW.md)
 
+The presentation site for the live demo is at [`/demo`](http://localhost:3000/demo). It explains the story and opens the interactive Core app at `/`.
+
 The app reads the bot's Postgres database. The bot owns writes, voting, group membership checks, and Arcade checkout. Tailwind is pinned to 3.4.x.
