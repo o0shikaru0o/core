@@ -47,4 +47,5 @@ export type Design = DesignBrief & {
   imageUrl: string;
   arcadeId?: string;
   priceUsd?: number;
+  makerName?: string;
 };
