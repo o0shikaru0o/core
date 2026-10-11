@@ -7,7 +7,11 @@ import { stageFromArcade, type Order, type Product, type Project, type Proposal 
 // Without DATABASE_URL the app shows demo data.
 const g = globalThis as unknown as { corePool?: Pool };
 const pool = process.env.DATABASE_URL
-  ? (g.corePool ??= new Pool({ connectionString: process.env.DATABASE_URL, max: 3 }))
+  ? (g.corePool ??= new Pool({
+      connectionString: process.env.DATABASE_URL,
+      max: 1,
+      ssl: /localhost|127\.0\.0\.1/.test(process.env.DATABASE_URL) ? undefined : { rejectUnauthorized: false },
+    }))
   : null;
 
 // Only these Telegram groups are shown. Pages have no login, so anyone with a link could see a group's lore and quotes.
