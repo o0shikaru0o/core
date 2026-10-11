@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 body {
-  @apply bg-stone text-ink font-sans antialiased;
+  @apply bg-[#F2F2F2] text-ink font-sans antialiased;
 }
