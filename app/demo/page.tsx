@@ -36,18 +36,18 @@ export default function DemoPage() {
             <div><span>Experience</span><strong>Telegram bot · Core app · Arcade</strong></div>
             <div><span>Team</span><strong>Rachel · Ekene</strong></div>
           </div>
-          <Link href="/" className={styles.textLink}>Launch the live app <span aria-hidden>↗</span></Link>
+          <Link href="/demo/journey" className={styles.textLink}>Walk through the product <span aria-hidden>↗</span></Link>
         </div>
       </section>
 
-      <section className={styles.hero} aria-label="Core product preview">
+      <section className={styles.hero} aria-label="Friends together, the heart of Core">
         <div className={styles.heroCopy}>
-          <span className={styles.heroIndex}>01 / From conversation to creation</span>
-          <p>Some things<br />are too good to<br /><i>stay in the chat.</i></p>
+          <span className={styles.heroIndex}>01 / The group behind the story</span>
+          <p>Made for<br />the people<br /><i>in the chat.</i></p>
         </div>
         <div className={styles.heroImage}>
-          <Image src="/demo/pattern-rose-lattice.jpg" alt="Floral design preview for the Final Rose pocket square" fill priority sizes="(max-width: 800px) 100vw, 55vw" />
-          <span className={styles.heroImageLabel}>THE FINAL ROSE / APARTMENT 4B</span>
+          <Image src="/demo/group-chat.png" alt="A group of friends together outdoors" fill priority sizes="(max-width: 800px) 100vw, 55vw" />
+          <span className={styles.heroImageLabel}>THE PEOPLE MAKE THE STORY</span>
         </div>
       </section>
 
@@ -74,7 +74,7 @@ export default function DemoPage() {
       <section className={styles.feature}>
         <div className={styles.featureCopy}><span className={styles.sectionNumber}>04 / The spark</span><h2>It starts with a moment everyone remembers.</h2><p>In Apartment 4B, Sam ends every group dinner with a “final rose.” Core catches the recurring joke and brings it back to the group as a product idea.</p><div className={styles.smallNote}>Real group context shapes the idea. A group vote decides if it moves forward.</div></div>
         <div className={styles.chatPanel} aria-label="Example Telegram conversation">
-          <div className={styles.chatTop}><span className={styles.avatar}>4B</span><div><strong>Apartment 4B</strong><small>group chat</small></div><span className={styles.chatMenu}>•••</span></div>
+          <div className={styles.chatTop}><span className={styles.avatar}><Image src="/demo/group-chat.png" alt="" fill sizes="44px" /></span><div><strong>Apartment 4B</strong><small>group chat</small></div><span className={styles.chatMenu}>•••</span></div>
           <div className={styles.chatDate}>TODAY</div>
           <div className={styles.chatBubble}><strong>Sam</strong>and tonight&apos;s final rose goes to… whoever paid</div>
           <div className={styles.chatBubble}><strong>Mei</strong>the rose ceremony is the only reason I come to these</div>
@@ -96,7 +96,7 @@ export default function DemoPage() {
         </div>
       </section>
 
-      <section className={styles.finalCta}><span className={styles.sectionNumber}>Ready to see it?</span><h2>Open the story.<br /><em>Explore the product.</em></h2><p>The app includes a sample group and products so you can walk through the experience even when the live bot is not connected.</p><div className={styles.actions}><Link href="/" className={styles.primaryButton}>Launch live demo <span aria-hidden>↗</span></Link><a href="https://github.com/o0shikaru0o/core" target="_blank" rel="noopener noreferrer" className={styles.secondaryButton}>View the code <span aria-hidden>↗</span></a></div></section>
+      <section className={styles.finalCta}><span className={styles.sectionNumber}>Ready to see it?</span><h2>Open the story.<br /><em>Explore the product.</em></h2><p>Start with the guided walkthrough, then explore the working app and its sample group.</p><div className={styles.actions}><Link href="/demo/journey" className={styles.primaryButton}>Start guided demo <span aria-hidden>↗</span></Link><Link href="/" className={styles.secondaryButton}>Explore the app <span aria-hidden>↗</span></Link></div></section>
 
       <footer className={styles.footer}><Link href="/demo" className={styles.brand}>Core<span className={styles.brandDot}>.</span></Link><p>Made from the moments that make us us.</p><a href="#top">Back to top ↑</a></footer>
     </main>
