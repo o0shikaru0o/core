@@ -1,20 +1,21 @@
-# Gaise
+# Core
 
-Custom jewelry designed for your outfit, occasion, and taste. Spec: see `PRD.md`.
+Core turns a group chat's shared lore into real products. A Telegram bot finds a recurring moment, lets the group vote, and asks Arcade to make the winning product. This Next.js app is the image-led collection and order-tracking experience.
 
-## Setup
+## Run locally
 
 ```bash
-npm install
-cp .env.example .env.local   # fill in keys; never commit .env.local
+npm ci
+cp .env.example .env.local
 npm run dev
 ```
 
-Tailwind is pinned to 3.4.x — do not upgrade to v4.
+Without `DATABASE_URL`, the app uses the demo group, products, and orders in `lib/demo.ts`. Set `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` to enable the **Get yours** Telegram handoff; the demo does not link to an assumed bot username.
 
-## Shared contracts (change only with a heads-up to the team)
+## Product and integration
 
-- `lib/schema.ts` — `Analysis`, `DesignBrief`, `Design` types + zod schemas
-- `lib/store.ts` — client flow state (zustand)
-- `lib/styles.ts` — the 12 taste cards (images go in `public/styles/<id>.jpg`)
-- `lib/providers/types.ts` — `DesignProvider` interface; select with `DESIGN_PROVIDER`
+- [Product requirements](PRD.md)
+- [Core bot integration](docs/INTEGRATION.md)
+- [UX flow and visual direction](docs/UX_FLOW.md)
+
+The app reads the bot's Postgres database. The bot owns writes, voting, group membership checks, and Arcade checkout. Tailwind is pinned to 3.4.x.

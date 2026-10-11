@@ -14,9 +14,9 @@ const config: Config = {
         stone: "#E8E3DB",
       },
       fontFamily: {
-        wordmark: ["Sansation", "var(--font-sans)", "sans-serif"],
+        wordmark: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
         serif: ["var(--font-serif)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        sans: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
       },
     },
   },

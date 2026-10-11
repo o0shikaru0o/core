@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import PhoneFrame from "@/components/PhoneFrame";
 import "./globals.css";
-
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Core — custom designs for groups",
@@ -18,7 +15,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={sans.variable}>
+    <html lang="en">
       <body>
         <PhoneFrame>{children}</PhoneFrame>
       </body>

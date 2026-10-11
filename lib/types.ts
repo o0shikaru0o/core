@@ -75,5 +75,7 @@ export type Order = {
 export const formatPrice = (p: Price | null) =>
   p ? new Intl.NumberFormat("en-US", { style: "currency", currency: p.currency }).format(Number(p.amount)) : null;
 
-export const buyLink = (productId: string) =>
-  `https://t.me/${process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME || "CoreBot"}?start=buy_${productId}`;
+export const buyLink = (productId: string) => {
+  const bot = process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME;
+  return bot ? `https://t.me/${bot}?start=buy_${productId}` : null;
+};
