@@ -13,6 +13,7 @@
     "@anthropic-ai/sdk": "^0.133.0",
     "framer-motion": "^14.1.0",
     "next": "14.2.35",
+    "pg": "^8.23.1",
     "react": "^18",
     "react-dom": "^18",
     "zod": "^4.6.6",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
